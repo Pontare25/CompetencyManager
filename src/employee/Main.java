@@ -21,7 +21,6 @@ public class Main extends Application {
 
         showMainView();
         showMainItems();
-
     }
 
     private void showMainView() throws IOException {
@@ -46,7 +45,6 @@ public class Main extends Application {
         loader.setLocation(Main.class.getResource("electrical/ElectricalDep.fxml"));
         BorderPane electricalDep = loader.load();
         mainLayout.setCenter(electricalDep);
-
     }
 
     public static void showMechanicalScene() throws IOException //Should be public static void
@@ -55,7 +53,6 @@ public class Main extends Application {
         loader.setLocation(Main.class.getResource("mechanical/MechanicalDep.fxml"));
         BorderPane mechanicalDep = loader.load();
         mainLayout.setCenter(mechanicalDep);
-
     }
     
     public static void showAddStage() throws IOException{
@@ -71,8 +68,6 @@ public class Main extends Application {
         Scene scene = new Scene(addNewEmployee);
         addDialogeStage.setScene(scene);
         addDialogeStage.showAndWait();
-        
-        
     }
 
 
