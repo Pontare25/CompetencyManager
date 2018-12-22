@@ -3,6 +3,7 @@ package employee.view;
 import java.util.Calendar;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 public class AddNewEmployeeController {
@@ -23,6 +24,11 @@ public class AddNewEmployeeController {
     @FXML
     private TextField ageField;
     
+    @FXML
+    private RadioButton maleBtn;
+    @FXML
+    private RadioButton femaleButton;
+    
     
     @FXML
     private void handleAge(){
@@ -30,6 +36,6 @@ public class AddNewEmployeeController {
         int year = now.get(Calendar.YEAR);
         int birthYear = (DateOfBirth.getValue().getYear());
         int age = year - birthYear;
-        ageField.setText(Integer.toString(age));
+        ageField.setText(Integer.toString(age) + " Years");
     }
 }
