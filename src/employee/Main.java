@@ -13,14 +13,23 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
+    public int employeeCounter;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        this.employeeCounter = 1;
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Competency Manager");
 
         showMainView();
         showMainItems();
+    }
+    
+    public int getEmployeeCounter(){
+        return this.employeeCounter;
+    }
+    public void incrementEmployeeCounter(){
+        this.employeeCounter+=1;
     }
 
     private void showMainView() throws IOException {

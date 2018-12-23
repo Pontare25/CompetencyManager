@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 
 public class AddNewEmployeeController {
     
-    
     //Contact Information
     @FXML
     private TextField nameField;
@@ -37,5 +36,14 @@ public class AddNewEmployeeController {
         int birthYear = (DateOfBirth.getValue().getYear());
         int age = year - birthYear;
         ageField.setText(Integer.toString(age) + " Years");
+    }
+    
+    @FXML
+    private void okBtnPressed(){
+        
+        System.out.println("Name: " + nameField.getText());
+        System.out.println("phone: " + phoneField.getText());
+        System.out.println("email:: " + emailField.getText());
+        System.out.println("Birthday: " + Integer.toString(DateOfBirth.getValue().getYear()) + DateOfBirth.getValue().getMonthValue() + DateOfBirth.getValue().getDayOfMonth());
     }
 }
