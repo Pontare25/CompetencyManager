@@ -3,6 +3,8 @@ package employee;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -13,23 +15,20 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
-    public int employeeCounter;
+    public ObservableList<Person> employeeList = FXCollections.observableArrayList();
+    public ObservableList<Competency> competencyList = FXCollections.observableArrayList();
+    public ObservableList<String> mainDepartmentList = FXCollections.observableArrayList();
+    public ObservableList<String> departmentList = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.employeeCounter = 1;
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Competency Manager");
-
+        
+        
+        generateEmployees();
         showMainView();
         showMainItems();
-    }
-    
-    public int getEmployeeCounter(){
-        return this.employeeCounter;
-    }
-    public void incrementEmployeeCounter(){
-        this.employeeCounter+=1;
     }
 
     private void showMainView() throws IOException {
@@ -64,6 +63,13 @@ public class Main extends Application {
         mainLayout.setCenter(mechanicalDep);
     }
     
+    public static void showAllEmployeesInfoScene() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("AllEmployees/AllEmployeesInfo.fxml"));
+        BorderPane allEmployeesInfo = loader.load();
+        mainLayout.setCenter(allEmployeesInfo);
+    }
+    
     public static void showAddStage() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/AddNewEmployee.fxml"));
@@ -78,7 +84,53 @@ public class Main extends Application {
         addDialogeStage.setScene(scene);
         addDialogeStage.showAndWait();
     }
+    
+    public void generateEmployees(){
+        //ReadFromFile and add to list
+        
+        
+    }
+    
+    public void generateCompetencies(){
+        //ReadFromFile and add to list
+        
+        
+    }
+    
+    public void addEmployeeToList(Person employeeToAdd){
+        //PrintToFile
+        
+        //AddToList
+        //OBS! SKA EGENTLIGEN VARA
+        //employeeList.addAll(new Person());
+        employeeList.add(employeeToAdd);
+    }
+    
+    public ObservableList<Person> getEmployees(){
+        return this.employeeList;
+    }
+    
+    public void addCompetencyToList(Competency competencyToAdd){
+        //PrintToFile
+        
+        //AddToList
+        competencyList.add(competencyToAdd);
+    }
 
+    public ObservableList<Competency> getCompetencies(){
+        return this.competencyList;
+    }
+    
+    public Competency getCompetency(int CompID){
+        for (int i = 0; i < competencyList.size(); i++)
+        {
+            if (competencyList.get(i).getCompetencyID()==CompID)
+            {
+                return competencyList.get(i);
+            }
+        }
+       return null;
+    }
 
     public static void main(String[] args) {
         launch(args);

@@ -19,5 +19,10 @@ public class MainItemsController {
 	private void goMechanical() throws IOException {
 		main.showMechanicalScene();
 	}
+        
+        @FXML
+        private void goAllEmployeesInformation() throws IOException{
+            main.showAllEmployeesInfoScene();
+        }
 
 }

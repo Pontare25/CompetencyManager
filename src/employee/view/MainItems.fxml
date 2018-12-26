@@ -10,6 +10,7 @@
    <center>
       <FlowPane hgap="20.0" prefHeight="200.0" prefWidth="200.0" vgap="20.0" BorderPane.alignment="CENTER">
          <children>
+            <Button mnemonicParsing="false" onAction="#goAllEmployeesInformation" prefHeight="100.0" prefWidth="120.0" text="All Employees" />
             <Button mnemonicParsing="false" onAction="#goElectrical" prefHeight="100.0" prefWidth="120.0" text="Electrical Dep" />
             <Button mnemonicParsing="false" onAction="#goMechanical" prefHeight="100.0" prefWidth="120.0" text="Mechanical Dep" />
          </children>
