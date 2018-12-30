@@ -5,6 +5,7 @@
  */
 package employee.AllEmployees;
 
+import employee.CompetencyValidity;
 import employee.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,7 +35,7 @@ public class AllEmployeesInfoController implements Initializable {
     @FXML
     private TableView<Person> employeeTable;
     @FXML
-    private TableColumn<Person, String> idColumn;
+    private TableColumn<Person, Integer> idColumn;
     @FXML
     private TableColumn<Person, String> firstNameColumn;
     @FXML
@@ -61,9 +62,9 @@ public class AllEmployeesInfoController implements Initializable {
     
     //Competency Table
     @FXML
-    private TableView<?> CompetencyTable;
+    private TableView<CompetencyValidity> CompetencyTable;
     @FXML
-    private TableColumn<?, ?> compCodeColumn;
+    private TableColumn<CompetencyValidity, Integer> compCodeColumn;
     @FXML
     private TableColumn<?, ?> compNameColumn;
     @FXML
@@ -99,23 +100,23 @@ public class AllEmployeesInfoController implements Initializable {
         empList.removeAll(empList);
         //Person p = new Person("1", "Pontus", "Nellgård", "0737", "pontus.nellgard", "M");
         
-        empList.addAll(new Person("0001", "Pontus", "Nellgård", "0737286560", "pontus.nellgard@gmail.com", "M"));
-        empList.addAll(new Person("0002", "Ludvig", "de Fine Licht", "3782", "ludvigdfldfl@gmail.com", "M"));
-        empList.addAll(new Person("0003", "Erik", "Bernstrup", "7238", "erik.bernstrup@gmail.com", "M"));
-        empList.addAll(new Person("0004", "Johanna", "Strand", "0737", "johannastraand@hotmail.com", "M"));
+        empList.addAll(new Person(1, "Pontus", "Nellgård", "0737286560", "pontus.nellgard@gmail.com", "M", "R&D", "Programming"));
+        empList.addAll(new Person(2, "Ludvig", "de Fine Licht", "3782", "ludvigdfldfl@gmail.com", "M"));
+        empList.addAll(new Person(3, "Erik", "Bernstrup", "7238", "erik.bernstrup@gmail.com", "M"));
+        empList.addAll(new Person(4, "Johanna", "Strand", "0737", "johannastraand@hotmail.com", "M"));
         employeeTable.getItems().addAll(empList);
     }
 
     @FXML
     private void DisplayEmployeeInformation(MouseEvent event) {
-        String empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
-        if (empID.isEmpty() || empID.equals(null))
+        String FName = employeeTable.getSelectionModel().getSelectedItem().getFirstName();
+        if (FName.isEmpty() || FName.equals(null))
         {
            EmpIDField.setText("Nothing Selected");
         }
         else
         {
-            EmpIDField.setText(empID);
+            EmpIDField.setText(Integer.toString(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID()));
             FNameField.setText(employeeTable.getSelectionModel().getSelectedItem().getFirstName());
             LNameField.setText(employeeTable.getSelectionModel().getSelectedItem().getLastName());
             phoneField.setText(employeeTable.getSelectionModel().getSelectedItem().getPhoneNumber());

@@ -10,42 +10,35 @@ import javafx.collections.ObservableList;
  */
 public class Person {
 
-    private SimpleStringProperty employeeID;
-    // private String name;
-    // private String phoneNumber;
-    //  private String email;
-    //  private String gender;
-    //  private String gender;
-    //   private Calendar birthday;
+    private int employeeID;
+    private SimpleStringProperty fName;
+    private SimpleStringProperty lName;
+    private SimpleStringProperty phoneNumber;
+    private SimpleStringProperty email;
+    private SimpleStringProperty gender;
+    private SimpleStringProperty mainDepartment;
+    private SimpleStringProperty department;
 
-    private  SimpleStringProperty fName;
-    private  SimpleStringProperty lName;
-    private  SimpleStringProperty phoneNumber;
-    private  SimpleStringProperty email;
-    private  SimpleStringProperty gender;
-    private  SimpleStringProperty mainDepartment;
-    private  SimpleStringProperty department;
-
-    public Person(String employeeID, String firstName, String lastName, String phoneNumber, String email, String gender, String mainDepartment, String department) {
-        this.employeeID = new SimpleStringProperty(employeeID);
+    public Person(int employeeID, String firstName, String lastName, String phoneNumber, String email, String gender, String mainDepartment, String department) {
+        this.employeeID = employeeID;
         this.fName = new SimpleStringProperty(firstName);
         this.lName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
         this.email = new SimpleStringProperty(email);
         this.gender = new SimpleStringProperty(gender);
-        
+
         this.mainDepartment = new SimpleStringProperty(mainDepartment);
         this.department = new SimpleStringProperty(department);
     }
-    
-    public Person(String employeeID, String firstName, String lastName, String phoneNumber, String email, String gender/*, Calendar birthday*/) {
-        this.employeeID = new SimpleStringProperty(employeeID);
+
+    public Person(int employeeID, String firstName, String lastName, String phoneNumber, String email, String gender/*, Calendar birthday*/) {
+        this.employeeID = employeeID;
         this.fName = new SimpleStringProperty(firstName);
         this.lName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
         this.email = new SimpleStringProperty(email);
         this.gender = new SimpleStringProperty(gender);
-        
+
         this.mainDepartment = new SimpleStringProperty("Unassigned");
         this.department = new SimpleStringProperty("Unassigned");
         //this.birthday = birthday;
@@ -54,7 +47,7 @@ public class Person {
     }
 
     public Person() {
-        this.employeeID = new SimpleStringProperty("0");
+        this.employeeID = 0;
         this.fName = new SimpleStringProperty("");
         this.lName = new SimpleStringProperty("");
         this.phoneNumber = new SimpleStringProperty("");
@@ -65,15 +58,14 @@ public class Person {
         //  this.birthday = Calendar.getInstance();
 
         //this.competencies.add(new Competency(1, "Greet", "Greeter"));
-
     }
 
-    public String getEmployeeID() {
-        return employeeID.get();
+    public int getEmployeeID() {
+        return employeeID;
     }
 
-    public void setEmployeeID(String employeeID) {
-        this.employeeID = new SimpleStringProperty(employeeID);
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
     public String getFirstName() {
@@ -83,7 +75,7 @@ public class Person {
     public void setFirstName(String name) {
         this.fName = new SimpleStringProperty(name);
     }
-    
+
     public String getLastName() {
         return lName.get();
     }
@@ -131,10 +123,10 @@ public class Person {
     public void setDepartment(String department) {
         this.department = new SimpleStringProperty(department);
     }
- 
+
     public String toString() {
         String ret = "";
-        ret += "Name: " + this.fName.get() + " " + this.lName.get() +"\tEmployee ID: " + this.employeeID.get();
+        ret += "Name: " + this.fName.get() + " " + this.lName.get() + "\tEmployee ID: " + Integer.toString(employeeID);
         ret += "\nPhoneNumber: " + this.phoneNumber.get();
         ret += "\nEmail: " + this.email.get();
         if (this.gender.get() == "M") {
@@ -149,11 +141,11 @@ public class Person {
         return ret;
     }
 
-   /* public ObservableList<Competency> getCompetencies() {
+    /* public ObservableList<Competency> getCompetencies() {
         return competencies;
     }*/
 
-  /*  public void addCompetency(int CompID) {
+ /*  public void addCompetency(int CompID) {
         Competency toAdd = main.getCompetency(CompID);
         if (toAdd.equals(null)) {
             //throw error window
@@ -162,5 +154,4 @@ public class Person {
             competencies.add(toAdd);
         }
     }*/
-
 }

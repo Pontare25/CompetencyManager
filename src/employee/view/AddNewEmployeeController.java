@@ -92,7 +92,7 @@ public class AddNewEmployeeController {
         }
         
         
-        Person emp1 = new Person("1", firstNameField.getText(), lastNameField.getText(),  phoneField.getText(), emailField.getText(), gender);
+        Person emp1 = new Person(1, firstNameField.getText(), lastNameField.getText(),  phoneField.getText(), emailField.getText(), gender);
         //main.addEmployeeToList(emp1);
         
         //System.out.println(main.employeeList.get(0).toString());
