@@ -89,6 +89,8 @@ public class Main extends Application {
         //ReadFromFile and add to list
         
         
+        employeeList.removeAll(employeeList);
+        employeeList.addAll(new Person(1, "Pontus", "Nellgård", "0737286560", "pontus.nellgard@gmail.com", "M", "R&D", "Programmer"));
     }
     
     public void generateCompetencies(){

@@ -5,9 +5,12 @@
  */
 package employee.AllEmployees;
 
+import employee.Competency;
 import employee.CompetencyValidity;
+import employee.Main;
 import employee.Person;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +32,9 @@ import javafx.scene.input.MouseEvent;
 public class AllEmployeesInfoController implements Initializable {
 
     private ObservableList<Person> empList = FXCollections.observableArrayList();
+    private ObservableList<Competency> competencyList = FXCollections.observableArrayList();
+    private ObservableList<CompetencyValidity> competencyValidityList = FXCollections.observableArrayList();
+    
     
     
     //Employees Table
@@ -66,11 +72,11 @@ public class AllEmployeesInfoController implements Initializable {
     @FXML
     private TableColumn<CompetencyValidity, Integer> compCodeColumn;
     @FXML
-    private TableColumn<?, ?> compNameColumn;
+    private TableColumn<CompetencyValidity, String> compNameColumn;
     @FXML
-    private TableColumn<?, ?> validUntilColumn;
+    private TableColumn<CompetencyValidity, String> validUntilColumn;
     @FXML
-    private TableColumn<?, ?> validFromColumn;
+    private TableColumn<CompetencyValidity, String> validFromColumn;
     @FXML
     private TextArea CompetencyDescriptionTextArea;
    
@@ -93,7 +99,10 @@ public class AllEmployeesInfoController implements Initializable {
     }
     
     public void initCompetencyColumns(){
-        
+        compCodeColumn.setCellValueFactory(new PropertyValueFactory<>("CompetencyID"));
+        compNameColumn.setCellValueFactory(new PropertyValueFactory<>("CompetencyTitle"));
+        validFromColumn.setCellValueFactory(new PropertyValueFactory<>("validFrom"));
+        validUntilColumn.setCellValueFactory(new PropertyValueFactory<>("validUntil"));
     }
     
     public void loadEmpData(){
@@ -104,8 +113,20 @@ public class AllEmployeesInfoController implements Initializable {
         empList.addAll(new Person(2, "Ludvig", "de Fine Licht", "3782", "ludvigdfldfl@gmail.com", "M"));
         empList.addAll(new Person(3, "Erik", "Bernstrup", "7238", "erik.bernstrup@gmail.com", "M"));
         empList.addAll(new Person(4, "Johanna", "Strand", "0737", "johannastraand@hotmail.com", "M"));
+        
         employeeTable.getItems().addAll(empList);
     }
+    
+    public void loadCompData(int id){
+        competencyValidityList.removeAll(competencyValidityList);
+       // if (id == 1){
+            competencyValidityList.addAll(new CompetencyValidity(2, "Test", "Testing", "2017-12-20", "2018-12-20"));
+        //}
+        
+        CompetencyTable.getItems().addAll(competencyValidityList);
+    }
+    
+     
 
     @FXML
     private void DisplayEmployeeInformation(MouseEvent event) {
@@ -126,6 +147,11 @@ public class AllEmployeesInfoController implements Initializable {
             departmentField.setText(employeeTable.getSelectionModel().getSelectedItem().getDepartment());
             //cityField.setText(employeeTable.getSelectionModel().getSelectedItem().getCity());
             cityField.setText("Not implemented yet");
+            
+           loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
+            
         }
     }
+
+   
 }

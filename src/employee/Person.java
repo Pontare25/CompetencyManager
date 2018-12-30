@@ -2,6 +2,7 @@ package employee;
 
 import java.util.Calendar;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -18,6 +19,8 @@ public class Person {
     private SimpleStringProperty gender;
     private SimpleStringProperty mainDepartment;
     private SimpleStringProperty department;
+    
+    private ObservableList<Competency> competencies = FXCollections.observableArrayList();
 
     public Person(int employeeID, String firstName, String lastName, String phoneNumber, String email, String gender, String mainDepartment, String department) {
         this.employeeID = employeeID;
@@ -29,6 +32,8 @@ public class Person {
 
         this.mainDepartment = new SimpleStringProperty(mainDepartment);
         this.department = new SimpleStringProperty(department);
+        
+        this.competencies.removeAll(competencies);
     }
 
     public Person(int employeeID, String firstName, String lastName, String phoneNumber, String email, String gender/*, Calendar birthday*/) {
@@ -41,6 +46,8 @@ public class Person {
 
         this.mainDepartment = new SimpleStringProperty("Unassigned");
         this.department = new SimpleStringProperty("Unassigned");
+        
+        this.competencies.removeAll(competencies);
         //this.birthday = birthday;
 
         //this.competencies.add(new Competency(1, "Greet", "Greeter"));
@@ -48,13 +55,15 @@ public class Person {
 
     public Person() {
         this.employeeID = 0;
-        this.fName = new SimpleStringProperty("");
-        this.lName = new SimpleStringProperty("");
-        this.phoneNumber = new SimpleStringProperty("");
-        this.email = new SimpleStringProperty("");
-        this.gender = new SimpleStringProperty("");
+        this.fName = new SimpleStringProperty("Unassigned");
+        this.lName = new SimpleStringProperty("Unassigned");
+        this.phoneNumber = new SimpleStringProperty("Unassigned");
+        this.email = new SimpleStringProperty("Unassigned");
+        this.gender = new SimpleStringProperty("Unassigned");
         this.mainDepartment = new SimpleStringProperty("Unassigned");
         this.department = new SimpleStringProperty("Unassigned");
+        
+        this.competencies.removeAll(competencies);
         //  this.birthday = Calendar.getInstance();
 
         //this.competencies.add(new Competency(1, "Greet", "Greeter"));
@@ -140,18 +149,16 @@ public class Person {
         //ret+= "/nBirthday: " + this.birthday.toString();
         return ret;
     }
+    
+    public void addCompetency(int compID, String ComTitle, String CompDesc){
+        competencies.addAll(new Competency(compID, ComTitle, CompDesc));
+    }
 
-    /* public ObservableList<Competency> getCompetencies() {
+    public ObservableList<Competency> getCompetencies() {
         return competencies;
-    }*/
+    }
+    
 
- /*  public void addCompetency(int CompID) {
-        Competency toAdd = main.getCompetency(CompID);
-        if (toAdd.equals(null)) {
-            //throw error window
-            System.out.println("Competency not found");
-        } else {
-            competencies.add(toAdd);
-        }
-    }*/
+    
+   
 }

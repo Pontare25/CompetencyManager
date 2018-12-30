@@ -39,5 +39,11 @@ public class Competency {
         this.competencyDescription = competencyDescription;
     }
     
+    public void clone(Competency toClone){
+        toClone.setCompetencyID(this.competencyID);
+        toClone.setCompetencyTitle(this.competencyTitle);
+        toClone.setCompetencyDescription(this.competencyDescription);
+    }
+    
     
 }

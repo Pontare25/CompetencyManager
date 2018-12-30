@@ -288,8 +288,8 @@
                                             <columns>
                                               <TableColumn fx:id="compCodeColumn" prefWidth="-1.0" text="CompCode" />
                                               <TableColumn fx:id="compNameColumn" prefWidth="121.0" text="CompName" />
-                                                <TableColumn fx:id="validUntilColumn" prefWidth="75.0" text="Valid Until" />
-                                                <TableColumn fx:id="validFromColumn" prefWidth="75.0" text="Valid From" />
+                                                <TableColumn prefWidth="75.0" text="Valid Until" />
+                                                <TableColumn prefWidth="75.0" text="Valid From" />
                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
