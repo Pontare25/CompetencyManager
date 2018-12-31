@@ -89,6 +89,7 @@ public class AllEmployeesInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initEmployeeColumns();
+        initCompetencyColumns();
         loadEmpData();
     }    
     
@@ -100,9 +101,9 @@ public class AllEmployeesInfoController implements Initializable {
     
     public void initCompetencyColumns(){
         compCodeColumn.setCellValueFactory(new PropertyValueFactory<>("CompetencyID"));
-        compNameColumn.setCellValueFactory(new PropertyValueFactory<>("CompetencyTitle"));
-        validFromColumn.setCellValueFactory(new PropertyValueFactory<>("validFrom"));
-        validUntilColumn.setCellValueFactory(new PropertyValueFactory<>("validUntil"));
+        compNameColumn.setCellValueFactory(new PropertyValueFactory<>("CompName"));
+        validFromColumn.setCellValueFactory(new PropertyValueFactory<>("ValidFrom"));
+        validUntilColumn.setCellValueFactory(new PropertyValueFactory<>("ValidUntil"));
     }
     
     public void loadEmpData(){
@@ -119,9 +120,9 @@ public class AllEmployeesInfoController implements Initializable {
     
     public void loadCompData(int id){
         competencyValidityList.removeAll(competencyValidityList);
-       // if (id == 1){
+        if (id == 1){
             competencyValidityList.addAll(new CompetencyValidity(2, "Test", "Testing", "2017-12-20", "2018-12-20"));
-        //}
+        }
         
         CompetencyTable.getItems().addAll(competencyValidityList);
     }
@@ -147,6 +148,7 @@ public class AllEmployeesInfoController implements Initializable {
             departmentField.setText(employeeTable.getSelectionModel().getSelectedItem().getDepartment());
             //cityField.setText(employeeTable.getSelectionModel().getSelectedItem().getCity());
             cityField.setText("Not implemented yet");
+            
             
            loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
             
