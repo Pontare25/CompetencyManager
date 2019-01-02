@@ -34,9 +34,7 @@ public class AllEmployeesInfoController implements Initializable {
     private ObservableList<Person> empList = FXCollections.observableArrayList();
     private ObservableList<Competency> competencyList = FXCollections.observableArrayList();
     private ObservableList<CompetencyValidity> competencyValidityList = FXCollections.observableArrayList();
-    
-    
-    
+
     //Employees Table
     @FXML
     private TableView<Person> employeeTable;
@@ -46,7 +44,7 @@ public class AllEmployeesInfoController implements Initializable {
     private TableColumn<Person, String> firstNameColumn;
     @FXML
     private TableColumn<Person, String> lastNameColumn;
-   
+
     //General Information
     @FXML
     private TextField EmpIDField;
@@ -58,14 +56,13 @@ public class AllEmployeesInfoController implements Initializable {
     private TextField phoneField;
     @FXML
     private TextField emailField;
-     @FXML
+    @FXML
     private TextField mDepartmentField;
     @FXML
     private TextField departmentField;
     @FXML
     private TextField cityField;
-   
-    
+
     //Competency Table
     @FXML
     private TableView<CompetencyValidity> CompetencyTable;
@@ -79,10 +76,7 @@ public class AllEmployeesInfoController implements Initializable {
     private TableColumn<CompetencyValidity, String> validFromColumn;
     @FXML
     private TextArea CompetencyDescriptionTextArea;
-   
-    
-    
-    
+
     /**
      * Initializes the controller class.
      */
@@ -91,108 +85,91 @@ public class AllEmployeesInfoController implements Initializable {
         initEmployeeColumns();
         initCompetencyColumns();
         loadEmpData();
-    }    
-    
-    public void initEmployeeColumns(){
+    }
+
+    public void initEmployeeColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("LastName"));
     }
-    
-    public void initCompetencyColumns(){
+
+    public void initCompetencyColumns() {
         compCodeColumn.setCellValueFactory(new PropertyValueFactory<>("CompetencyID"));
         compNameColumn.setCellValueFactory(new PropertyValueFactory<>("CompName"));
         validFromColumn.setCellValueFactory(new PropertyValueFactory<>("ValidFrom"));
         validUntilColumn.setCellValueFactory(new PropertyValueFactory<>("ValidUntil"));
-        
-        
+
         //CompetencyList
         competencyValidityList.removeAll(competencyValidityList);
         competencyValidityList.addAll(new CompetencyValidity(0, 0, "Test", "Testing", "2017-12-20", "2018-12-20"));
         competencyValidityList.addAll(new CompetencyValidity(1, 27, "Java Programmer", "A Programmer familiar with the Java language", "2017-12-20", "2018-12-20"));
         competencyValidityList.addAll(new CompetencyValidity(1, 29, "GUI Programmer", "A Programmer familiar with handling graphical user interface (GUI) elements", "2017-12-20", "2018-12-20"));
-        
+
         competencyValidityList.addAll(new CompetencyValidity(2, 1, "Driver", "Licensed Driver", "2016-11-20", "2018-11-20"));
         competencyValidityList.addAll(new CompetencyValidity(2, 2, "Trucker", "Licensed Truck Driver", "2017-10-20", "2018-11-20"));
         competencyValidityList.addAll(new CompetencyValidity(2, 43, "Receptionist", "Meets clients in the reception area", "2018-10-20", "2019-11-20"));
-        
+
         competencyValidityList.addAll(new CompetencyValidity(3, 7, "Head Economist", "Head of the economy department", "2017-12-20", "2018-12-20"));
         competencyValidityList.addAll(new CompetencyValidity(3, 6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20"));
-        
-        
+
         competencyValidityList.addAll(new CompetencyValidity(4, 6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20"));
     }
-    
-    public void loadEmpData(){
+
+    public void loadEmpData() {
         empList.removeAll(empList);
         //Person p = new Person("1", "Pontus", "Nellgård", "0737", "pontus.nellgard", "M");
-        
+
         empList.addAll(new Person(1, "Pontus", "Nellgård", "073-7286560", "pontus.nellgard@gmail.com", "M", "R&D", "Programming"));
         empList.addAll(new Person(2, "Ludvig", "de Fine Licht", "076-1345857", "ludvigdfldfl@gmail.com", "M"));
         empList.addAll(new Person(3, "Erik", "Bernstrup", "070-8254153", "erik.bernstrup@gmail.com", "M"));
         empList.addAll(new Person(4, "Johanna", "Strand", "073-7212227", "johannastraand@hotmail.com", "M"));
-        
-        
+
         employeeTable.getItems().addAll(empList);
     }
-    
-    public void loadCompData(int id){
-       
+
+    public void loadCompData(int id) {
+
         CompetencyTable.getItems().removeAll(competencyValidityList);
-        
-        
-        for (int i = 0; i <competencyValidityList.size(); i++)
-        {
-            if (competencyValidityList.get(i).getEmpID()==0 || competencyValidityList.get(i).getEmpID() == id)
-            {
+
+        for (int i = 0; i < competencyValidityList.size(); i++) {
+            if (competencyValidityList.get(i).getEmpID() == 0 || competencyValidityList.get(i).getEmpID() == id) {
                 CompetencyTable.getItems().add(competencyValidityList.get(i));
             }
         }
-        
-        //CompetencyTable.getItems().addAll(competencyValidityList);
     }
-    
-     
 
     @FXML
     private void DisplayEmployeeInformation(MouseEvent event) {
+        CompetencyDescriptionTextArea.clear();
+
         String FName = employeeTable.getSelectionModel().getSelectedItem().getFirstName();
-        if (FName.isEmpty() || FName.equals(null))
-        {
-           EmpIDField.setText("Nothing Selected");
-        }
-        else
-        {
+        if (FName.isEmpty() || FName.equals(null)) {
+            EmpIDField.setText("Nothing Selected");
+        } else {
             EmpIDField.setText(Integer.toString(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID()));
             FNameField.setText(employeeTable.getSelectionModel().getSelectedItem().getFirstName());
             LNameField.setText(employeeTable.getSelectionModel().getSelectedItem().getLastName());
             phoneField.setText(employeeTable.getSelectionModel().getSelectedItem().getPhoneNumber());
             emailField.setText(employeeTable.getSelectionModel().getSelectedItem().getEmail());
-            
+
             mDepartmentField.setText(employeeTable.getSelectionModel().getSelectedItem().getMainDepartment());
             departmentField.setText(employeeTable.getSelectionModel().getSelectedItem().getDepartment());
             //cityField.setText(employeeTable.getSelectionModel().getSelectedItem().getCity());
             cityField.setText("Not implemented yet");
-            
-            CompetencyDescriptionTextArea.clear();
-            
-            
-           loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
-            
+
+            loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
+
         }
     }
 
     @FXML
     private void DisplayCompetencyDescription(MouseEvent event) {
         String description = CompetencyTable.getSelectionModel().getSelectedItem().getCompDescription();
-        if (description.isEmpty() || description.equals(null))
-        {
-           CompetencyDescriptionTextArea.setText("Nothing Selected");
-        }
-        else{
+        if (description.isEmpty() || description.equals(null)) {
+            CompetencyDescriptionTextArea.setText("Nothing Selected");
+        } else {
             CompetencyDescriptionTextArea.setText(description);
         }
     }
 
-   
 }
