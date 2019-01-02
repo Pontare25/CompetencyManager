@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -98,42 +99,48 @@ public class AllEmployeesInfoController implements Initializable {
         compNameColumn.setCellValueFactory(new PropertyValueFactory<>("CompName"));
         validFromColumn.setCellValueFactory(new PropertyValueFactory<>("ValidFrom"));
         validUntilColumn.setCellValueFactory(new PropertyValueFactory<>("ValidUntil"));
-
-        //CompetencyList
-        competencyValidityList.removeAll(competencyValidityList);
-        competencyValidityList.addAll(new CompetencyValidity(0, 0, "Test", "Testing", "2017-12-20", "2018-12-20"));
-        competencyValidityList.addAll(new CompetencyValidity(1, 27, "Java Programmer", "A Programmer familiar with the Java language", "2017-12-20", "2018-12-20"));
-        competencyValidityList.addAll(new CompetencyValidity(1, 29, "GUI Programmer", "A Programmer familiar with handling graphical user interface (GUI) elements", "2017-12-20", "2018-12-20"));
-
-        competencyValidityList.addAll(new CompetencyValidity(2, 1, "Driver", "Licensed Driver", "2016-11-20", "2018-11-20"));
-        competencyValidityList.addAll(new CompetencyValidity(2, 2, "Trucker", "Licensed Truck Driver", "2017-10-20", "2018-11-20"));
-        competencyValidityList.addAll(new CompetencyValidity(2, 43, "Receptionist", "Meets clients in the reception area", "2018-10-20", "2019-11-20"));
-
-        competencyValidityList.addAll(new CompetencyValidity(3, 7, "Head Economist", "Head of the economy department", "2017-12-20", "2018-12-20"));
-        competencyValidityList.addAll(new CompetencyValidity(3, 6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20"));
-
-        competencyValidityList.addAll(new CompetencyValidity(4, 6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20"));
     }
 
     public void loadEmpData() {
         empList.removeAll(empList);
-        //Person p = new Person("1", "Pontus", "Nellgård", "0737", "pontus.nellgard", "M");
 
+        //Adds employees to the list
         empList.addAll(new Person(1, "Pontus", "Nellgård", "073-7286560", "pontus.nellgard@gmail.com", "M", "R&D", "Programming"));
         empList.addAll(new Person(2, "Ludvig", "de Fine Licht", "076-1345857", "ludvigdfldfl@gmail.com", "M"));
         empList.addAll(new Person(3, "Erik", "Bernstrup", "070-8254153", "erik.bernstrup@gmail.com", "M"));
         empList.addAll(new Person(4, "Johanna", "Strand", "073-7212227", "johannastraand@hotmail.com", "M"));
 
+        //Adds the employee list to the table
         employeeTable.getItems().addAll(empList);
+
+        //Adds Competencies to specific employees
+        empList.get(0).addCompetency(27, "Java Programmer", "A Programmer familiar with the Java language", "2017-12-20", "2018-12-20");
+        empList.get(0).addCompetency(29, "GUI Programmer", "A Programmer familiar with handling graphical user interface (GUI) elements", "2017-12-20", "2018-12-20");
+
+        empList.get(1).addCompetency(2, "Driver", "license to drive", "2017-12-20", "2018-12-20");
+        empList.get(1).addCompetency(4, "Trucker", "Licensed Truck Driver", "2017-10-20", "2018-11-20");
+
+        empList.get(2).addCompetency(7, "Head Economist", "Head of the economy department", "2017-12-20", "2018-12-20");
+        empList.get(2).addCompetency(6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20");
+
+        empList.get(3).addCompetency(2, "Driver", "license to drive", "2017-12-20", "2018-12-20");
+        empList.get(3).addCompetency(4, "Trucker", "Licensed Truck Driver", "2017-10-20", "2018-11-20");
+        empList.get(3).addCompetency(6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20");
+        //OBS! Adding the competencies to the table is done in the method loadCompData(int id) since it needs to be tied to a unique employee
+
     }
 
+    //Load competency data from the selected employee from the employee table
     public void loadCompData(int id) {
+        for (int i = 0; i < empList.size(); i++) {
+            CompetencyTable.getItems().removeAll(empList.get(i).getCompetencies());
+        }
 
-        CompetencyTable.getItems().removeAll(competencyValidityList);
-
-        for (int i = 0; i < competencyValidityList.size(); i++) {
-            if (competencyValidityList.get(i).getEmpID() == 0 || competencyValidityList.get(i).getEmpID() == id) {
-                CompetencyTable.getItems().add(competencyValidityList.get(i));
+        for (int i = 0; i < empList.size(); i++) {
+            if (empList.get(i).getEmployeeID() == id) {
+                for (int j = 0; i < empList.get(i).getCompetencies().size(); j++) {
+                    CompetencyTable.getItems().addAll(empList.get(i).getCompetencies().get(j));
+                }
             }
         }
     }
@@ -157,6 +164,7 @@ public class AllEmployeesInfoController implements Initializable {
             //cityField.setText(employeeTable.getSelectionModel().getSelectedItem().getCity());
             cityField.setText("Not implemented yet");
 
+            //Load competency data from the selected employee from the employee table
             loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
 
         }
@@ -170,6 +178,34 @@ public class AllEmployeesInfoController implements Initializable {
         } else {
             CompetencyDescriptionTextArea.setText(description);
         }
+    }
+
+    @FXML
+    private void AddCompetency(ActionEvent event) {
+        empList.get(0).addCompetency(42, "Meaning", "The meaining of life", "0000-00-00", "9999-99-99");
+        CompetencyTable.refresh();
+    }
+
+    @FXML
+    private void deleteCompetency(ActionEvent event) {
+        int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
+        int compID = CompetencyTable.getSelectionModel().getSelectedItem().getCompetencyID();
+        
+        for (int i = 0; i< empList.size(); i++)
+        {
+            if (empList.get(i).getEmployeeID() == empID)
+            {
+                for (int k = 0; k < empList.get(i).getCompetencies().size(); k++)
+                    if (empList.get(i).getCompetencies().get(k).getCompetencyID() == compID){
+                    empList.get(i).getCompetencies().remove(k);
+                    
+                    i= empList.size();
+                    k=empList.get(i).getCompetencies().size();
+                }
+            }
+        }
+        
+        CompetencyTable.refresh();
     }
 
 }

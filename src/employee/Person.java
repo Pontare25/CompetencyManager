@@ -20,7 +20,7 @@ public class Person {
     private SimpleStringProperty mainDepartment;
     private SimpleStringProperty department;
     
-    private ObservableList<Competency> competencies = FXCollections.observableArrayList();
+    private ObservableList<CompetencyValidity> competencies = FXCollections.observableArrayList();
 
     public Person(int employeeID, String firstName, String lastName, String phoneNumber, String email, String gender, String mainDepartment, String department) {
         this.employeeID = employeeID;
@@ -34,6 +34,8 @@ public class Person {
         this.department = new SimpleStringProperty(department);
         
         this.competencies.removeAll(competencies);
+        this.competencies.addAll(new CompetencyValidity(1, "Test", "Tests the list", "2019-01-03", "2020-01-03"));
+        
     }
 
     public Person(int employeeID, String firstName, String lastName, String phoneNumber, String email, String gender/*, Calendar birthday*/) {
@@ -50,8 +52,8 @@ public class Person {
         this.competencies.removeAll(competencies);
         //this.birthday = birthday;
 
-        //this.competencies.add(new Competency(1, "Greet", "Greeter"));
-    }
+        this.competencies.addAll(new CompetencyValidity(1, "Test", "Tests the list", "2019-01-03", "2020-01-03"));
+      }
 
     public Person() {
         this.employeeID = 0;
@@ -66,7 +68,7 @@ public class Person {
         this.competencies.removeAll(competencies);
         //  this.birthday = Calendar.getInstance();
 
-        //this.competencies.add(new Competency(1, "Greet", "Greeter"));
+        this.competencies.addAll(new CompetencyValidity(1, "Test", "Tests the list", "2019-01-03", "2020-01-03"));
     }
 
     public int getEmployeeID() {
@@ -150,11 +152,11 @@ public class Person {
         return ret;
     }
     
-    public void addCompetency(int compID, String ComTitle, String CompDesc){
-        competencies.addAll(new Competency(compID, ComTitle, CompDesc));
+    public void addCompetency(int compID, String ComTitle, String CompDesc, String validFrom, String validUntil){
+        competencies.addAll(new CompetencyValidity(compID, ComTitle, CompDesc,validFrom, validUntil));
     }
 
-    public ObservableList<Competency> getCompetencies() {
+    public ObservableList<CompetencyValidity> getCompetencies() {
         return competencies;
     }
     

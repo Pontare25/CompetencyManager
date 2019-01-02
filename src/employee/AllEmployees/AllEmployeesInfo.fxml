@@ -297,8 +297,8 @@
                                           </TableView>
                                           <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" text="+ Add Competency" textFill="#0bb524" />
-                                                <Button mnemonicParsing="false" text="- Delete Competency" textFill="RED" />
+                                                <Button mnemonicParsing="false" onAction="#AddCompetency" text="+ Add Competency" textFill="#0bb524" />
+                                                <Button mnemonicParsing="false" onAction="#deleteCompetency" text="- Delete Competency" textFill="RED" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
