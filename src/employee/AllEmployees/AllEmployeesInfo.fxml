@@ -47,6 +47,14 @@
                      </padding>
                   </HBox>
                </top>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#AddNewEmployee" prefWidth="70.0" text="+ Add" textFill="#0bb524" />
+                        <Button mnemonicParsing="false" onAction="#DeleteEmployee" prefWidth="70.0" text="- Delete" textFill="RED" />
+                     </children>
+                  </HBox>
+               </bottom>
             </BorderPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>

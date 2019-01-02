@@ -32,6 +32,8 @@ import javafx.scene.input.MouseEvent;
  */
 public class AllEmployeesInfoController implements Initializable {
 
+    private Main main;
+
     private ObservableList<Person> empList = FXCollections.observableArrayList();
     private ObservableList<Competency> competencyList = FXCollections.observableArrayList();
     private ObservableList<CompetencyValidity> competencyValidityList = FXCollections.observableArrayList();
@@ -105,10 +107,10 @@ public class AllEmployeesInfoController implements Initializable {
         empList.removeAll(empList);
 
         //Adds employees to the list
-        empList.addAll(new Person(1, "Pontus", "Nellgård", "073-7286560", "pontus.nellgard@gmail.com", "M", "R&D", "Programming"));
-        empList.addAll(new Person(2, "Ludvig", "de Fine Licht", "076-1345857", "ludvigdfldfl@gmail.com", "M"));
-        empList.addAll(new Person(3, "Erik", "Bernstrup", "070-8254153", "erik.bernstrup@gmail.com", "M"));
-        empList.addAll(new Person(4, "Johanna", "Strand", "073-7212227", "johannastraand@hotmail.com", "M"));
+        empList.addAll(new Person(1, "Pontus", "Nellgård", "+46737286560", "pontus.nellgard@gmail.com", "M", "R&D", "Programming"));
+        empList.addAll(new Person(2, "Ludvig", "de Fine Licht", "+46761345857", "ludvigdfldfl@gmail.com", "M"));
+        empList.addAll(new Person(3, "Erik", "Bernstrup", "+46708254153", "erik.bernstrup@gmail.com", "M"));
+        empList.addAll(new Person(4, "Johanna", "Strand", "+46737212227", "johannastraand@hotmail.com", "M"));
 
         //Adds the employee list to the table
         employeeTable.getItems().addAll(empList);
@@ -123,11 +125,12 @@ public class AllEmployeesInfoController implements Initializable {
         empList.get(2).addCompetency(7, "Head Economist", "Head of the economy department", "2017-12-20", "2018-12-20");
         empList.get(2).addCompetency(6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20");
 
-        empList.get(3).addCompetency(2, "Driver", "license to drive", "2017-12-20", "2018-12-20");
+        empList.get(3).addCompetency(2, "Driver", "Licensed to drive", "2017-12-20", "2018-12-20");
         empList.get(3).addCompetency(4, "Trucker", "Licensed Truck Driver", "2017-10-20", "2018-11-20");
         empList.get(3).addCompetency(6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20");
         //OBS! Adding the competencies to the table is done in the method loadCompData(int id) since it needs to be tied to a unique employee
 
+        
     }
 
     //Load competency data from the selected employee from the employee table
@@ -190,22 +193,41 @@ public class AllEmployeesInfoController implements Initializable {
     private void deleteCompetency(ActionEvent event) {
         int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
         int compID = CompetencyTable.getSelectionModel().getSelectedItem().getCompetencyID();
-        
-        for (int i = 0; i< empList.size(); i++)
-        {
-            if (empList.get(i).getEmployeeID() == empID)
-            {
-                for (int k = 0; k < empList.get(i).getCompetencies().size(); k++)
-                    if (empList.get(i).getCompetencies().get(k).getCompetencyID() == compID){
-                    empList.get(i).getCompetencies().remove(k);
-                    
-                    i= empList.size();
-                    k=empList.get(i).getCompetencies().size();
+
+        for (int i = 0; i < empList.size(); i++) {
+            if (empList.get(i).getEmployeeID() == empID) {
+                for (int k = 0; k < empList.get(i).getCompetencies().size(); k++) {
+                    if (empList.get(i).getCompetencies().get(k).getCompetencyID() == compID) {
+                        empList.get(i).getCompetencies().remove(k);
+
+                        i = empList.size();
+                        k = empList.get(i).getCompetencies().size();
+                    }
                 }
             }
         }
-        
+
         CompetencyTable.refresh();
+    }
+
+    @FXML
+    private void AddNewEmployee(ActionEvent event) {
+        
+        
+    }
+
+    @FXML
+    private void DeleteEmployee(ActionEvent event) {
+        int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
+        
+        for (int i = 0; i < empList.size(); i++)
+        {
+            if (empList.get(i).getEmployeeID() == empID){
+                empList.remove(i);
+                i = empList.size();
+                employeeTable.refresh();
+            }
+        }
     }
 
 }
