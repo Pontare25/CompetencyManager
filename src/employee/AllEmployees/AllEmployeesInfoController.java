@@ -87,6 +87,7 @@ public class AllEmployeesInfoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         initEmployeeColumns();
         initCompetencyColumns();
+        generateEmpData();
         loadEmpData();
     }
 
@@ -102,8 +103,8 @@ public class AllEmployeesInfoController implements Initializable {
         validFromColumn.setCellValueFactory(new PropertyValueFactory<>("ValidFrom"));
         validUntilColumn.setCellValueFactory(new PropertyValueFactory<>("ValidUntil"));
     }
-
-    public void loadEmpData() {
+    
+    public void generateEmpData(){
         empList.removeAll(empList);
 
         //Adds employees to the list
@@ -112,10 +113,7 @@ public class AllEmployeesInfoController implements Initializable {
         empList.addAll(new Person(3, "Erik", "Bernstrup", "+46708254153", "erik.bernstrup@gmail.com", "M"));
         empList.addAll(new Person(4, "Johanna", "Strand", "+46737212227", "johannastraand@hotmail.com", "M"));
 
-        //Adds the employee list to the table
-        employeeTable.getItems().addAll(empList);
-
-        //Adds Competencies to specific employees
+         //Adds Competencies to specific employees
         empList.get(0).addCompetency(27, "Java Programmer", "A Programmer familiar with the Java language", "2017-12-20", "2018-12-20");
         empList.get(0).addCompetency(29, "GUI Programmer", "A Programmer familiar with handling graphical user interface (GUI) elements", "2017-12-20", "2018-12-20");
 
@@ -131,6 +129,12 @@ public class AllEmployeesInfoController implements Initializable {
         //OBS! Adding the competencies to the table is done in the method loadCompData(int id) since it needs to be tied to a unique employee
 
         
+    }
+
+    public void loadEmpData() { 
+        //Adds the employee list to the table
+        employeeTable.getItems().addAll(empList);
+ 
     }
 
     //Load competency data from the selected employee from the employee table
@@ -168,6 +172,7 @@ public class AllEmployeesInfoController implements Initializable {
             cityField.setText("Not implemented yet");
 
             //Load competency data from the selected employee from the employee table
+            
             loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
 
         }
@@ -185,29 +190,22 @@ public class AllEmployeesInfoController implements Initializable {
 
     @FXML
     private void AddCompetency(ActionEvent event) {
-        empList.get(0).addCompetency(42, "Meaning", "The meaining of life", "0000-00-00", "9999-99-99");
-        CompetencyTable.refresh();
+        int selectedEmp = employeeTable.getSelectionModel().getSelectedIndex();
+        int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
+        empList.get(selectedEmp).addCompetency(42, "Meaning", "The meaining of life", "0000-00-00", "9999-99-99");
+        CompetencyTable.getItems().clear();
+        loadCompData(empID);
     }
 
     @FXML
     private void deleteCompetency(ActionEvent event) {
+        int selectedEmp = employeeTable.getSelectionModel().getSelectedIndex();
         int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
-        int compID = CompetencyTable.getSelectionModel().getSelectedItem().getCompetencyID();
-
-        for (int i = 0; i < empList.size(); i++) {
-            if (empList.get(i).getEmployeeID() == empID) {
-                for (int k = 0; k < empList.get(i).getCompetencies().size(); k++) {
-                    if (empList.get(i).getCompetencies().get(k).getCompetencyID() == compID) {
-                        empList.get(i).getCompetencies().remove(k);
-
-                        i = empList.size();
-                        k = empList.get(i).getCompetencies().size();
-                    }
-                }
-            }
-        }
-
-        CompetencyTable.refresh();
+        int selectedComp = CompetencyTable.getSelectionModel().getSelectedIndex();
+        empList.get(selectedEmp).deleteCompetency(0);
+        
+        CompetencyTable.getItems().clear();
+        loadCompData(empID);
     }
 
     @FXML
@@ -225,9 +223,13 @@ public class AllEmployeesInfoController implements Initializable {
             if (empList.get(i).getEmployeeID() == empID){
                 empList.remove(i);
                 i = empList.size();
-                employeeTable.refresh();
+                
             }
         }
+        
+        employeeTable.getItems().clear();
+        CompetencyTable.getItems().clear();
+        loadEmpData();
     }
 
 }

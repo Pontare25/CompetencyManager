@@ -160,6 +160,19 @@ public class Person {
         return competencies;
     }
     
+    public void deleteCompetency(int index){
+        competencies.remove(index);
+    }
+    
+    public void compToString(){
+        System.out.println("Competencies\n");
+        for (int i = 0; i < competencies.size(); i++)
+            {
+                System.out.println(competencies.get(i).getCompName() + "\n");
+            }
+        
+    }
+    
 
     
    
