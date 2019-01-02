@@ -133,23 +133,14 @@ public class AllEmployeesInfoController implements Initializable {
 
     public void loadEmpData() { 
         //Adds the employee list to the table
+        employeeTable.getItems().clear();
         employeeTable.getItems().addAll(empList);
- 
     }
 
     //Load competency data from the selected employee from the employee table
-    public void loadCompData(int id) {
-        for (int i = 0; i < empList.size(); i++) {
-            CompetencyTable.getItems().removeAll(empList.get(i).getCompetencies());
-        }
-
-        for (int i = 0; i < empList.size(); i++) {
-            if (empList.get(i).getEmployeeID() == id) {
-                for (int j = 0; i < empList.get(i).getCompetencies().size(); j++) {
-                    CompetencyTable.getItems().addAll(empList.get(i).getCompetencies().get(j));
-                }
-            }
-        }
+    public void loadCompData(int selectedEmp) { 
+        CompetencyTable.getItems().clear();
+        CompetencyTable.getItems().addAll(empList.get(selectedEmp).getCompetencies());
     }
 
     @FXML
@@ -172,8 +163,7 @@ public class AllEmployeesInfoController implements Initializable {
             cityField.setText("Not implemented yet");
 
             //Load competency data from the selected employee from the employee table
-            
-            loadCompData(employeeTable.getSelectionModel().getSelectedItem().getEmployeeID());
+            loadCompData(employeeTable.getSelectionModel().getSelectedIndex());
 
         }
     }
@@ -191,27 +181,30 @@ public class AllEmployeesInfoController implements Initializable {
     @FXML
     private void AddCompetency(ActionEvent event) {
         int selectedEmp = employeeTable.getSelectionModel().getSelectedIndex();
-        int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
+       // int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
         empList.get(selectedEmp).addCompetency(42, "Meaning", "The meaining of life", "0000-00-00", "9999-99-99");
         CompetencyTable.getItems().clear();
-        loadCompData(empID);
+        loadCompData(selectedEmp);
     }
 
     @FXML
     private void deleteCompetency(ActionEvent event) {
         int selectedEmp = employeeTable.getSelectionModel().getSelectedIndex();
-        int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
+        //int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
         int selectedComp = CompetencyTable.getSelectionModel().getSelectedIndex();
-        empList.get(selectedEmp).deleteCompetency(0);
+        empList.get(selectedEmp).deleteCompetency(selectedComp);
         
         CompetencyTable.getItems().clear();
-        loadCompData(empID);
+        loadCompData(selectedEmp);
     }
 
     @FXML
     private void AddNewEmployee(ActionEvent event) {
+        empList.addAll(new Person(99, "firstName", "lastName", "99999999", "email", "gender"));
+        empList.get(empList.size()-1).addCompetency(0, "ComTitle", "CompDesc", "000000", "9999999");
+        CompetencyTable.getItems().clear();
         
-        
+        loadEmpData();
     }
 
     @FXML
@@ -226,10 +219,8 @@ public class AllEmployeesInfoController implements Initializable {
                 
             }
         }
-        
-        employeeTable.getItems().clear();
         CompetencyTable.getItems().clear();
-        loadEmpData();
+        loadEmpData(); //OBS! Clear function implemented
     }
 
 }

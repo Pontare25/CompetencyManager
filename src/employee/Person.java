@@ -50,8 +50,6 @@ public class Person {
         this.department = new SimpleStringProperty("Unassigned");
         
         this.competencies.removeAll(competencies);
-        //this.birthday = birthday;
-
         this.competencies.addAll(new CompetencyValidity(1, "Test", "Tests the list", "2019-01-03", "2020-01-03"));
       }
 
@@ -66,8 +64,6 @@ public class Person {
         this.department = new SimpleStringProperty("Unassigned");
         
         this.competencies.removeAll(competencies);
-        //  this.birthday = Calendar.getInstance();
-
         this.competencies.addAll(new CompetencyValidity(1, "Test", "Tests the list", "2019-01-03", "2020-01-03"));
     }
 
