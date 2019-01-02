@@ -14,13 +14,15 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class CompetencyValidity {
     
+    private int empID;
     private int competencyID;
     private SimpleStringProperty CompName;
     private SimpleStringProperty CompDescription;
     private SimpleStringProperty validFrom;
     private SimpleStringProperty validUntil;
 
-    public CompetencyValidity(int competencyID, String CompName, String CompDesc, String validFrom, String validUntil) {
+    public CompetencyValidity(int empID, int competencyID, String CompName, String CompDesc, String validFrom, String validUntil) {
+        this.empID = empID;
         this.competencyID = competencyID;
         this.CompName = new SimpleStringProperty(CompName);
         this.CompDescription = new SimpleStringProperty(CompDesc);
@@ -28,6 +30,14 @@ public class CompetencyValidity {
         this.validUntil = new SimpleStringProperty(validUntil);
     }
 
+    public int getEmpID() {
+        return empID;
+    }
+
+    public void setEmpID(int empID) {
+        this.empID = empID;
+    }
+    
     public int getCompetencyID() {
         return competencyID;
     }
