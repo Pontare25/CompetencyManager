@@ -127,8 +127,6 @@ public class AllEmployeesInfoController implements Initializable {
         empList.get(3).addCompetency(4, "Trucker", "Licensed Truck Driver", "2017-10-20", "2018-11-20");
         empList.get(3).addCompetency(6, "Client Support", "Handles client communications", "2017-12-20", "2018-12-20");
         //OBS! Adding the competencies to the table is done in the method loadCompData(int id) since it needs to be tied to a unique employee
-
-        
     }
 
     public void loadEmpData() { 
@@ -164,7 +162,6 @@ public class AllEmployeesInfoController implements Initializable {
 
             //Load competency data from the selected employee from the employee table
             loadCompData(employeeTable.getSelectionModel().getSelectedIndex());
-
         }
     }
 
@@ -181,7 +178,6 @@ public class AllEmployeesInfoController implements Initializable {
     @FXML
     private void AddCompetency(ActionEvent event) {
         int selectedEmp = employeeTable.getSelectionModel().getSelectedIndex();
-       // int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
         empList.get(selectedEmp).addCompetency(42, "Meaning", "The meaining of life", "0000-00-00", "9999-99-99");
         CompetencyTable.getItems().clear();
         loadCompData(selectedEmp);
@@ -190,7 +186,6 @@ public class AllEmployeesInfoController implements Initializable {
     @FXML
     private void deleteCompetency(ActionEvent event) {
         int selectedEmp = employeeTable.getSelectionModel().getSelectedIndex();
-        //int empID = employeeTable.getSelectionModel().getSelectedItem().getEmployeeID();
         int selectedComp = CompetencyTable.getSelectionModel().getSelectedIndex();
         empList.get(selectedEmp).deleteCompetency(selectedComp);
         

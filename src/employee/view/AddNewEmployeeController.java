@@ -53,8 +53,6 @@ public class AddNewEmployeeController {
     private String handleObligatoryFields() {
         boolean fieldsFilled = true;
         String fieldsNotFilled = "The following fields needs to be Filled:\n__________________________________________";
-
-        //nameField.getText().equals("");
         
         if (firstNameField.getText().equals("")) {
             fieldsFilled = false;
