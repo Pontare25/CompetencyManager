@@ -9,6 +9,7 @@ import employee.Competency;
 import employee.CompetencyValidity;
 import employee.Main;
 import employee.Person;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -193,14 +194,24 @@ public class AllEmployeesInfoController implements Initializable {
         loadCompData(selectedEmp);
     }
 
+   
+            
+    
     @FXML
-    private void AddNewEmployee(ActionEvent event) {
-        empList.addAll(new Person(99, "firstName", "lastName", "99999999", "email", "gender"));
+    private void AddNewEmployee(ActionEvent event) throws IOException {
+       /* empList.addAll(new Person(99, "firstName", "lastName", "99999999", "email", "gender"));
         empList.get(empList.size()-1).addCompetency(0, "ComTitle", "CompDesc", "000000", "9999999");
-        CompetencyTable.getItems().clear();
+       */ 
         
+         main.showAddEmpStage();
+        
+        
+        CompetencyTable.getItems().clear();
         loadEmpData();
     }
+    
+    
+    
 
     @FXML
     private void DeleteEmployee(ActionEvent event) {

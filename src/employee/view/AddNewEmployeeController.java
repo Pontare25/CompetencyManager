@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 public class AddNewEmployeeController {
     private Main main;
@@ -39,6 +40,8 @@ public class AddNewEmployeeController {
     private ComboBox departMentBox;
     @FXML
     private TextField workTitleField;
+    @FXML
+    private ToggleGroup GenderButtons;
 
     @FXML
     private void handleAge() {
@@ -49,7 +52,6 @@ public class AddNewEmployeeController {
         ageField.setText(Integer.toString(age) + " Years");
     }
 
-    @FXML
     private String handleObligatoryFields() {
         boolean fieldsFilled = true;
         String fieldsNotFilled = "The following fields needs to be Filled:\n__________________________________________";

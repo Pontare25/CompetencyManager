@@ -85,6 +85,24 @@ public class Main extends Application {
         addDialogeStage.showAndWait();
     }
     
+    //Add employee from AllEmployees
+     public static void showAddEmpStage() throws IOException{
+       FXMLLoader loader = new FXMLLoader();
+       loader.setLocation(Main.class.getResource("AllEmployees/AddEmployee.fxml"));
+       BorderPane addNewEmployee = loader.load();
+       
+       Stage addDialogeStage = new Stage();
+        addDialogeStage.setTitle("Add new Employee");
+        addDialogeStage.initModality(Modality.WINDOW_MODAL);
+        addDialogeStage.initOwner(primaryStage);
+        
+        Scene scene = new Scene(addNewEmployee);
+        addDialogeStage.setScene(scene);
+        addDialogeStage.showAndWait();
+     }
+       
+    
+    
     public void generateEmployees(){
         //ReadFromFile and add to list
         
