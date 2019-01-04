@@ -19,10 +19,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -90,6 +92,12 @@ public class AllEmployeesInfoController implements Initializable {
     private TextField AddphoneField;
     @FXML
     private TextField AddemailField;
+    @FXML
+    private RadioButton MaleBtnFromAdd;
+    @FXML
+    private ToggleGroup GenderGroupFromAllEmployeesScene;
+    @FXML
+    private RadioButton FemaleBtnFromAdd;
 
     /**
      * Initializes the controller class.
@@ -250,12 +258,19 @@ public class AllEmployeesInfoController implements Initializable {
     @FXML
     private void AddEmployeeFromThisScene(ActionEvent event) {
         
+        
+        
         int employeeIDToAdd = Integer.parseInt(AddEmpIDField.getText());
         String FnametoAdd = AddFNameField.getText();
         String LnametoAdd = AddLNameField.getText();
         String emailtoAdd = AddemailField.getText();
         String PhoneToadd  = AddphoneField.getText();
-        String gender = "M";
+        String gender = "Unassigned";
+        if (MaleBtnFromAdd.isSelected()){
+            gender = "M";
+        }
+        else
+            gender = "F";
         
         empList.addAll(new Person(employeeIDToAdd, FnametoAdd, LnametoAdd, PhoneToadd, emailtoAdd, gender));
         
