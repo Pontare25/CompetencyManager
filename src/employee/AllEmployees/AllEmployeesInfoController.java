@@ -80,6 +80,16 @@ public class AllEmployeesInfoController implements Initializable {
     private TableColumn<CompetencyValidity, String> validFromColumn;
     @FXML
     private TextArea CompetencyDescriptionTextArea;
+    @FXML
+    private TextField AddEmpIDField;
+    @FXML
+    private TextField AddFNameField;
+    @FXML
+    private TextField AddLNameField;
+    @FXML
+    private TextField AddphoneField;
+    @FXML
+    private TextField AddemailField;
 
     /**
      * Initializes the controller class.
@@ -204,12 +214,20 @@ public class AllEmployeesInfoController implements Initializable {
        */ 
         
          main.showAddEmpStage();
+         
         
         
         CompetencyTable.getItems().clear();
         loadEmpData();
     }
     
+    public void addEmployeeFromScene(Person employeeToAdd){
+        
+        empList.addAll(employeeToAdd);
+        
+        CompetencyTable.getItems().clear();
+        loadEmpData();
+    }
     
     
 
@@ -227,6 +245,28 @@ public class AllEmployeesInfoController implements Initializable {
         }
         CompetencyTable.getItems().clear();
         loadEmpData(); //OBS! Clear function implemented
+    }
+
+    @FXML
+    private void AddEmployeeFromThisScene(ActionEvent event) {
+        
+        int employeeIDToAdd = Integer.parseInt(AddEmpIDField.getText());
+        String FnametoAdd = AddFNameField.getText();
+        String LnametoAdd = AddLNameField.getText();
+        String emailtoAdd = AddemailField.getText();
+        String PhoneToadd  = AddphoneField.getText();
+        String gender = "M";
+        
+        empList.addAll(new Person(employeeIDToAdd, FnametoAdd, LnametoAdd, PhoneToadd, emailtoAdd, gender));
+        
+        CompetencyTable.getItems().clear();
+        loadEmpData();
+        
+        AddEmpIDField.clear();
+        AddFNameField.clear();
+        AddLNameField.clear();
+        AddemailField.clear();
+        AddphoneField.clear();
     }
 
 }

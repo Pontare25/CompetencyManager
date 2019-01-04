@@ -5,10 +5,12 @@
  */
 package employee.AllEmployees;
 
+import employee.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -58,6 +60,27 @@ public class AddEmployeeController implements Initializable {
 
     @FXML
     private void AddBtnPressed(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("AllEmployeesInfo.fxml"));
+        AllEmployeesInfoController controller = loader.getController();
+        
+        String fNmae = FNameField.getText();
+        String lNmae = LNameField.getText();
+        String email = emailField.getText();
+        String phone = phoneField.getText();
+        String gender = "Unassigned"; 
+        
+        if (maleBtn.isSelected()){
+            gender = "M";
+        }
+        else {
+            gender = "F";
+        }
+        
+       
+        Person employeeToAdd = new Person(99, fNmae, lNmae, phone, email, gender);
+        
+        controller.addEmployeeFromScene(employeeToAdd);
     }
     
 }
